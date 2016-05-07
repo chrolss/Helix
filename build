@@ -1,3 +1,3 @@
 #!/bin/bash
 
-g++ main.cpp -o helix
+g++ -std=c++11  main.cpp /home/pi/coding/Helix/src/mpu9150.cpp /home/pi/coding/Helix/src/pwm.cpp /home/pi/coding/Helix/src/motors.cpp /home/pi/coding/Helix/src/i2c.cpp  -o helix
