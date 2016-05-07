@@ -31,8 +31,8 @@ void mpu9150::readAccelerations(){
 	this->xAcc = ((int16_t)rxBuffer[0]<<8) | rxBuffer[1];
 	this->yAcc = ((int16_t)rxBuffer[2]<<8) | rxBuffer[3];
 	this->zAcc = ((int16_t)rxBuffer[4]<<8) | rxBuffer[5];
-	this->roll = atan2(yAcc,zAcc) * 180/M_PI;
-	this->pitch = atan2(-xAcc, sqrt(yAcc*yAcc + zAcc*zAcc)) * 180/M_PI;
+	this->roll = atan2(yAcc,zAcc); //radians now * 180/M_PI;
+	this->pitch = -1*atan2(-xAcc, sqrt(yAcc*yAcc + zAcc*zAcc)); //radians now * 180/M_PI;
 }
 
 void mpu9150::getAccelerations(double *returnArray){
@@ -49,6 +49,7 @@ void mpu9150::getSensorReadings(double *returnArray){
 	returnArray[2] = this->zAcc*aConv;
 	returnArray[3] = this->pitch;
 	returnArray[4] = this->roll;
+	returnArray[5] = 0.0;	//TODO: yaw reading
 }
 
 void mpu9150::readGyro(){

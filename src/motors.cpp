@@ -30,8 +30,7 @@ double motors::mapper(double _preVal){
 
 int motors::setSpeed(double* _speeds){
 	// &_speeds = [RF, RR, LR, LF]
-	// TODO: SPEEDS ARE CURRENTLY GIVEN IN PWM DUTYCYCLE LEVELS, E.G. 20-49
-	// CHANGE TO 0 - 100 MAPPING
+	// speeds are 0 - 100% and will be mapped with mapper to 20 - 49
 	this->internalDuty[0] = mapper(_speeds[0]);
 	this->internalDuty[1] = mapper(_speeds[1]);
 	this->internalDuty[2] = mapper(_speeds[2]);
