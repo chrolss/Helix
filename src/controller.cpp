@@ -63,7 +63,7 @@ void controller::getControlSignal(double *_refs, double *_sensorReadings, double
 	Ma = MrT*cos45 - MpT*sin45;
 	Mb = MrT*cos45 + MpT*sin45;
 	Mg = -MyT;
-	F = 0.0; //4*THRUST_CONST*0.30*0.30*10000.0; // ??
+	F = 0.045; //4*THRUST_CONST*0.30*0.30*10000.0; // ??
 	//return the control signals
 	printf("Mb: %f, Ma: %f, Mg: %f\n", Ma, Mb, Mg);
 	_controlSignals[0] = 0.25*(F*C1 - Mb*C2 + Mg*C3);

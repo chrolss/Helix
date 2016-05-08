@@ -14,13 +14,16 @@ int main(){
 	motors* motor = new motors();
 	controller* control = new controller();
 	usleep(10000);
+
 	for (int i = 0; i<300; i++){
 		mpu->getSensorReadings(sensorReadings);
 		control->getReferences(references);
 		control->getControlSignal(references, sensorReadings, motorVal);
-		printf("RF: %f, LF: %f, LR: %f, RR: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
+		motor->setSpeed(motorVal);
+		printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
 		usleep(100000);
 	}
+
 	/*
 	for (int i = 0; i<300; i++){
 		mpu->getSensorReadings(sensorReadings);

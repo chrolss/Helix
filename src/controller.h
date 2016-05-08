@@ -5,7 +5,7 @@
 #define cos45 0.707106
 #define sin45 0.707106
 #define C1 3333.33
-#define C2 37878.7
+#define C2 277
 #define C3 1e7
 #define THRUST_CONST 0.0003
 
