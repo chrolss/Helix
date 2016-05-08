@@ -40,6 +40,19 @@ void controller::getReferences(double *_refs){
 	_refs[2] = 0.0;
 }
 
+double controller::signalLimiter(double _signal){
+	// makes sure the sent signal is between 0 - 100
+	if (_signal > MAX_SIGNAL){
+		return MAX_SIGNAL;
+	}
+	else if (_signal < MIN_SIGNAL){
+		return MIN_SIGNAL;
+	}
+	else{
+		return _signal;
+	}
+}
+
 void controller::getControlSignal(double *_refs, double *_sensorReadings, double *_controlSignals){
 	// sensorReadings[] = x-acc, y-acc, z-acc, pitch, roll, yaw (not added)
 	// refs[] = pitch, roll, yaw
@@ -65,9 +78,9 @@ void controller::getControlSignal(double *_refs, double *_sensorReadings, double
 	Mg = -MyT;
 	F = 0.045; //4*THRUST_CONST*0.30*0.30*10000.0; // ??
 	//return the control signals
-	printf("Mb: %f, Ma: %f, Mg: %f\n", Ma, Mb, Mg);
-	_controlSignals[0] = 0.25*(F*C1 - Mb*C2 + Mg*C3);
-	_controlSignals[1] = 0.25*(F*C1 - Ma*C2 - Mg*C3);
-	_controlSignals[2] = 0.25*(F*C1 + Mb*C2 + Mg*C3);
-	_controlSignals[3] = 0.25*(F*C1 + Ma*C2 - Mg*C3);
+	//printf("Mb: %f, Ma: %f, Mg: %f\n", Ma, Mb, Mg);
+	_controlSignals[0] = signalLimiter(0.25*(F*C1 - Mb*C2 + Mg*C3));	//RF
+	_controlSignals[1] = signalLimiter(0.25*(F*C1 - Ma*C2 - Mg*C3));	//RR
+	_controlSignals[2] = signalLimiter(0.25*(F*C1 + Mb*C2 + Mg*C3));	//LR
+	_controlSignals[3] = signalLimiter(0.25*(F*C1 + Ma*C2 - Mg*C3));	//LF
 }

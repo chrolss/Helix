@@ -8,6 +8,8 @@
 #define C2 277
 #define C3 1e7
 #define THRUST_CONST 0.0003
+#define MAX_SIGNAL 50.0
+#define MIN_SIGNAL 0.0
 
 class controller{
 public:
@@ -18,7 +20,7 @@ private:
 	void initialize();
 	void readParameters(std::string _paramsFileName);	//reads PID params from file
 	void writeParameters();	//writes PID params to file
-
+	double signalLimiter(double _signal);
 	double eRoll[3];	//0 = current, 1 = previous, 2 = integrated
 	double ePitch[3];
 	double eYaw[3];
