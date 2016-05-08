@@ -61,13 +61,13 @@ void controller::getControlSignal(double *_refs, double *_sensorReadings, double
 	this->eYaw[1] = eYaw[0];
 	//calculate the actual control torques
 	Ma = MrT*cos45 - MpT*sin45;
-	Mb = MrT*cos45 + MpT*cos45;
+	Mb = MrT*cos45 + MpT*sin45;
 	Mg = -MyT;
 	F = 0.0; //4*THRUST_CONST*0.30*0.30*10000.0; // ??
 	//return the control signals
 	printf("Mb: %f, Ma: %f, Mg: %f\n", Ma, Mb, Mg);
-	_controlSignals[0] = 0.25*(F*C1 + Mb*C2 + Mg*C3);
+	_controlSignals[0] = 0.25*(F*C1 - Mb*C2 + Mg*C3);
 	_controlSignals[1] = 0.25*(F*C1 - Ma*C2 - Mg*C3);
-	_controlSignals[2] = 0.25*(F*C1 - Mb*C2 + Mg*C3);
+	_controlSignals[2] = 0.25*(F*C1 + Mb*C2 + Mg*C3);
 	_controlSignals[3] = 0.25*(F*C1 + Ma*C2 - Mg*C3);
 }

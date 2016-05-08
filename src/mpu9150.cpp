@@ -32,7 +32,7 @@ void mpu9150::readAccelerations(){
 	this->yAcc = ((int16_t)rxBuffer[2]<<8) | rxBuffer[3];
 	this->zAcc = ((int16_t)rxBuffer[4]<<8) | rxBuffer[5];
 	this->roll = atan2(yAcc,zAcc); //radians now * 180/M_PI;
-	this->pitch = -1*atan2(-xAcc, sqrt(yAcc*yAcc + zAcc*zAcc)); //radians now * 180/M_PI;
+	this->pitch = atan2(-xAcc, sqrt(yAcc*yAcc + zAcc*zAcc)); //radians now * 180/M_PI;
 }
 
 void mpu9150::getAccelerations(double *returnArray){
