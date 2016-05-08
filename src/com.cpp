@@ -4,7 +4,7 @@ com::com(){
 	initialize();
 }
 
-void error(const char *msg)	//function for catching communication errors
+void com::error(const char *msg)	//function for catching communication errors
 {
     perror(msg);
     exit(1);
@@ -38,7 +38,7 @@ void com::readMsg(){
 	bzero(buffer,256);
 	n = read(newsockfd,buffer,255);
 	if (n < 0) error("ERROR reading from socket");
-	printf("Here is the message: %s \n",buffer);
+	printf("Here is the message: %d \n",(int)buffer[0]);
 	//break communication if client sends "quit"
 	std::string str(buffer);
 	std::string subst = str.substr(0,4);
@@ -52,8 +52,8 @@ void com::readMsg(){
 		n = write(newsockfd,"I got your message",18);
 		if (n < 0) error("ERROR writing to socket");
 	}
-	}
 }
+
 
 void com::closeStream(){
     //close the socket and remove the connection

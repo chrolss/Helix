@@ -19,6 +19,7 @@ private:
 	int sockfd, newsockfd, portno;				//bit addresses
 	socklen_t clilen;
 	char buffer[256];							//messages buffer
+	int msgBuffer[256];
 	struct sockaddr_in serv_addr, cli_addr;	//communcation structs
 	int n;										//communcation handle
 };
