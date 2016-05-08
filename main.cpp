@@ -4,6 +4,7 @@
 #include "src/motors.h"
 #include "src/mpu9150.h"
 #include "src/controller.h"
+#include "src/com.h"
 
 double sensorReadings[5];		//x-acc, y-acc, z-acc, pitch, roll
 double comOutput[5];			//[x-ref, y-ref, z-ref, thrust, ...]
@@ -11,6 +12,7 @@ double motorVal[4];				//[RF, RR, LR, LF] pwm-values 0 - 100
 double references[3];
 
 int main(){
+	com* comHandle = new com();
 	mpu9150* mpu = new mpu9150();
 	motors* motor = new motors();
 	controller* control = new controller();
@@ -19,7 +21,7 @@ int main(){
 	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 	double loopSleep;
 	double loopTime;
-
+/*
 	for (int i = 0; i<150; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
@@ -41,5 +43,7 @@ int main(){
 	}
 
 	motor->closeMotors();
+*/
+	comHandle->readMsg();
 	return 1;
 }
