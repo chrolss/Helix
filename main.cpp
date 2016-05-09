@@ -12,11 +12,11 @@ double motorVal[4];				//[RF, RR, LR, LF] pwm-values 0 - 100
 double references[3];
 
 int main(){
-	com* comHandle = new com();
 	mpu9150* mpu = new mpu9150();
 	motors* motor = new motors();
 	controller* control = new controller();
 	usleep(10000);
+	com* comHandle = new com();
 	//initialize the clock
 	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 	double loopSleep;

@@ -26,19 +26,23 @@ void com::initialize(){
 	error("ERROR on binding");
 
 	//listen for connection on sockfd, 5 is the amount of possible connections allowed
+	printf("Listening for QuadCenter\n");
 	listen(sockfd,5);
 	clilen = sizeof(cli_addr);
 	newsockfd = accept(sockfd,(struct sockaddr *) &cli_addr,&clilen);
 	if (newsockfd < 0)
 		error("ERROR on accept");
-
+	printf("QuadCenter connected\n");
 }
 
 void com::readMsg(){
 	bzero(buffer,256);
-	n = read(newsockfd,buffer,255);
+	double msgBuff[256];
+	bzero(msgBuff,256);
+	n = read(newsockfd,msgBuff,255);
 	if (n < 0) error("ERROR reading from socket");
-	printf("Here is the message: %d \n",(int)buffer[0]);
+	printf("Here is the message: %f \n",msgBuff[0]);
+	printf("Here is the second msg: %f \n", msgBuff[1]);
 	//break communication if client sends "quit"
 	std::string str(buffer);
 	std::string subst = str.substr(0,4);
