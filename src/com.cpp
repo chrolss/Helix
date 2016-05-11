@@ -39,10 +39,8 @@ void com::initialize(){
 void com::readMsg(){
 	bzero(buffer,256);
 	n = read(newsockfd,buffer,255);
-	double m = atof(buffer);
 	if (n < 0) error("ERROR reading from socket");
-	printf("Here is the message: %f \n",m);
-	std::cout << m << std::endl;
+	printf("Here is the message: %s \n",buffer);
 	//printf("Here is the second msg: %f \n", atof(buffer[1]));
 	//break communication if client sends "quit"
 	std::string str(buffer);
