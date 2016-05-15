@@ -14,7 +14,7 @@ public:
 	void readMsg();
 	void closeStream();
 	void sendAck();
-	void readJoyVals();
+	void readJoyVals(double *_joyVal);
 private:
 	void initialize();
 	void error(const char *msg);

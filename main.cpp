@@ -9,6 +9,7 @@
 double sensorReadings[5];		//x-acc, y-acc, z-acc, pitch, roll
 double comOutput[5];			//[x-ref, y-ref, z-ref, thrust, ...]
 double motorVal[4];				//[RF, RR, LR, LF] pwm-values 0 - 100
+double joyVal[3];				//[x-axis, y-axis, throttle]
 double references[3];
 
 int main(){
@@ -21,11 +22,13 @@ int main(){
 	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 	double loopSleep;
 	double loopTime;
-/*
+
 	for (int i = 0; i<150; i++){
 		auto start = std::chrono::high_resolution_clock::now();
+		comHandle->sendAck();	//send to joystick that we want to read
+		comHandle->readJoyVals(joyVal);
 		mpu->getSensorReadings(sensorReadings);
-		control->getReferences(references);
+		control->getReferences(references, joyVal);
 		control->getControlSignal(references, sensorReadings, motorVal);
 		motor->setSpeed(motorVal);
 		printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
@@ -43,12 +46,13 @@ int main(){
 	}
 
 	motor->closeMotors();
-*/
+	/*
 	while (true){
 		usleep(10000);
-		comHandle->sendAck();
+		comHandle->sendAck();	//send to joystick that we want to read
 		//comHandle->readMsg();
-		comHandle->readJoyVals();
+		comHandle->readJoyVals(joyVal);
 	}
+	*/
 	return 1;
 }

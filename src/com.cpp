@@ -49,7 +49,8 @@ void com::readMsg(){
 		printf("val: %f \n",readVal/42007.0);
 }
 
-void com::readJoyVals(){
+void com::readJoyVals(double *_joyVal){
+	//special function that reads only the joystick values from the QuadCenter program
 	int readVal[3];
 	bzero(buffer,256);
 	n = read(newsockfd,buffer,255);
@@ -63,6 +64,7 @@ void com::readJoyVals(){
 	for (int i = 0;i<3;i++){
 		iss >> sub;
 		readVal[i] = std::stoi (sub);
+		//_joyVal[i] = std::stoi (sub);
 	}
 	//int readVal = std::stoi (str);
 	/*

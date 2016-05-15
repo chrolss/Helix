@@ -15,7 +15,7 @@ class controller{
 public:
 	controller();
 	void getControlSignal(double *_refs, double *_sensorReadings, double *_controlSignals);
-	void getReferences(double *_refs);
+	void getReferences(double *_refs, double *_joyVal);
 private:
 	void initialize();
 	void readParameters(std::string _paramsFileName);	//reads PID params from file
