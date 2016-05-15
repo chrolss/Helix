@@ -37,26 +37,48 @@ void com::initialize(){
 }
 
 void com::readMsg(){
+		bzero(buffer,256);
+		n = read(newsockfd,buffer,255);
+		if (n < 0) error("ERROR reading from socket");
+		//printf("Here is the message: %s \n",buffer);
+		//printf("Here is the second msg: %f \n", atof(buffer[1]));
+		//break communication if client sends "quit"
+		//std::string str(buffer);
+		//int readVal = std::stoi (str);
+		int readVal = atoi(buffer);
+		printf("val: %f \n",readVal/42007.0);
+}
+
+void com::readJoyVals(){
+	int readVal[3];
 	bzero(buffer,256);
 	n = read(newsockfd,buffer,255);
 	if (n < 0) error("ERROR reading from socket");
-	printf("Here is the message: %s \n",buffer);
+	//printf("Here is the message: %s \n",buffer);
 	//printf("Here is the second msg: %f \n", atof(buffer[1]));
 	//break communication if client sends "quit"
 	std::string str(buffer);
-	std::string subst = str.substr(0,4);
-	if (subst == "quit"){
-		printf("The client has quit the conversation \n");
-		n = write(newsockfd, "Closing the connection",22);
-	 }
-
-	 //Write back to client
-	else{
-		n = write(newsockfd,"I got your message",18);
-		if (n < 0) error("ERROR writing to socket");
+	std::istringstream iss(str);
+	std::string sub;
+	for (int i = 0;i<3;i++){
+		iss >> sub;
+		readVal[i] = std::stoi (sub);
 	}
+	//int readVal = std::stoi (str);
+	/*
+	readVal[i] = atoi(buffer);
+	double endVal0 = readVal[0]/42007.0;
+	double endVal1 = readVal[1]/42007.0;
+	double throttle = readVal[2];
+	*/
+	printf("val: %d, val: %d, val: %d\n", readVal[0], readVal[1], readVal[2]);
+
 }
 
+void com::sendAck(){
+	n = write(newsockfd,"send",4);
+	if (n<0) error("error sendign ack\n");
+}
 
 void com::closeStream(){
     //close the socket and remove the connection

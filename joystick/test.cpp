@@ -8,7 +8,7 @@ int standardTest(Joystick joystick)
 	{
 		// Restrict rate
 		usleep(1000);
-		printf("GOING AROUND\n");
+		//printf("GOING AROUND\n");
 		// Attempt to sample an event from the joystick
 		JoystickEvent event;
 		if (joystick.sample(&event))
@@ -64,13 +64,16 @@ int main(int argc, char** argv)
 	*/
 	int readings[18];
 	JoystickEvent event;
-	//standardTest(joystick);
+	Joystick joystick("/dev/input/js0");
+	standardTest(joystick);
+	/*
 	while (true){
 		//printf("Entering\n");
 		Joystick joystick("/dev/input/js0");
 		sampleTest(joystick, event, readings);
-		printf("X-Axis: %d\n", readings[12]);
+		printf("X-axis: %d, Y-axis: %d, z-axis: %d\n", readings[12], readings[13], readings[14]);
 		usleep(1000);
 		joystick.~Joystick();
 	}
+	*/
 }

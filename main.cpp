@@ -44,6 +44,11 @@ int main(){
 
 	motor->closeMotors();
 */
-	comHandle->readMsg();
+	while (true){
+		usleep(10000);
+		comHandle->sendAck();
+		//comHandle->readMsg();
+		comHandle->readJoyVals();
+	}
 	return 1;
 }

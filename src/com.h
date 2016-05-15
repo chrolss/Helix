@@ -13,6 +13,8 @@ public:
 	com();
 	void readMsg();
 	void closeStream();
+	void sendAck();
+	void readJoyVals();
 private:
 	void initialize();
 	void error(const char *msg);
