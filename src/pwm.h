@@ -40,6 +40,7 @@ public:
 	void setQuadDutyCycle(double* _duty);
 	void setFrequency(int _freq);
 	void closePWM();
+	void startQuadEngines();
 private:
 	int devAdress = 0x40; //i2c address to Adafruit PWM hat
 	int pinNr;
