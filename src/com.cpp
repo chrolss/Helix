@@ -63,8 +63,8 @@ void com::readJoyVals(double *_joyVal){
 	std::string sub;
 	for (int i = 0;i<3;i++){
 		iss >> sub;
-		readVal[i] = std::stoi (sub);
-		//_joyVal[i] = std::stoi (sub);
+		//readVal[i] = std::stoi (sub);
+		_joyVal[i] = std::stoi (sub);
 	}
 	//int readVal = std::stoi (str);
 	/*
@@ -73,7 +73,7 @@ void com::readJoyVals(double *_joyVal){
 	double endVal1 = readVal[1]/42007.0;
 	double throttle = readVal[2];
 	*/
-	printf("val: %d, val: %d, val: %d\n", readVal[0], readVal[1], readVal[2]);
+	//printf("val: %d, val: %d, val: %d\n", readVal[0], readVal[1], readVal[2]);
 
 }
 
