@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include "unistd.h"
+#include <stdio.h>
 
 Joystick::Joystick()
 {
@@ -27,15 +28,18 @@ Joystick::Joystick(std::string devicePath)
 
 void Joystick::openPath(std::string devicePath)
 {
-  _fd = open(devicePath.c_str(), O_RDONLY | O_NONBLOCK);
+  this->_fd = open(devicePath.c_str(), O_RDONLY | O_NONBLOCK);
 }
 
 bool Joystick::sample(JoystickEvent* event)
 {
-  int bytes = read(_fd, event, sizeof(*event));
+  int bytes = read(this->_fd, event, sizeof(*event));
 
-  if (bytes == -1)
-    return false;
+  if (bytes == -1){
+	  //printf("byte error\n");
+	  return false;
+  }
+
 
   // NOTE if this condition is not met, we're probably out of sync and this
   // Joystick instance is likely unusable
