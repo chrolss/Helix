@@ -61,7 +61,8 @@ void com::readJoyVals(double *_joyVal){
 	std::string str(buffer);
 	std::istringstream iss(str);
 	std::string sub;
-	for (int i = 0;i<3;i++){
+	for (int i = 0;i<4;i++){
+		// i<x where x is number of actions read, (buttons and axes)
 		iss >> sub;
 		//readVal[i] = std::stoi (sub);
 		_joyVal[i] = std::stoi (sub);
