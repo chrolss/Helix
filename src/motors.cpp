@@ -6,18 +6,18 @@ motors::motors(){
 
 int motors::initialize(){
 	this->pwmHandle = new pwm();
-	pwmHandle->setFrequency(200000000);
+	pwmHandle->setFrequency(200); //old val: 200000000
 	usleep(1000000); // give time to set frequency
 	//pwmHandle->setQuadDutyCycle(stopDuty);
 	usleep(1000000); // give time to start all ESC
 	printf("Engines started\n");
-	this->stopDuty[0] = 20.0;
-	this->stopDuty[1] = 20.0;
-	this->stopDuty[2] = 20.0;
-	this->stopDuty[3] = 20.0;
+	this->stopDuty[0] = 2.0;
+	this->stopDuty[1] = 2.0;
+	this->stopDuty[2] = 2.0;
+	this->stopDuty[3] = 2.0;
 	pwmHandle->setQuadDutyCycle(stopDuty);
 	//pwmHandle->startQuadEngines();
-	usleep(1000000);
+	usleep(10000000);
 	printf("Engines started\n");
 	return 1;
 }
@@ -29,7 +29,7 @@ int motors::closeMotors(){
 }
 
 double motors::mapper(double _preVal){
-	return (29.0/100.0 * _preVal + 20);
+	return (2.9/100.00 * _preVal + 2.0);
 }
 
 int motors::setSpeed(double* _speeds){
