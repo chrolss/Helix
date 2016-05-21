@@ -23,7 +23,7 @@ int main(){
 	double loopSleep;
 	double loopTime;
 
-	for (int i = 0; i<400; i++){
+	for (int i = 0; i<1000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		comHandle->sendAck();	//send to joystick that we want to read
 		comHandle->readJoyVals(joyVal);

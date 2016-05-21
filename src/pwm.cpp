@@ -9,7 +9,7 @@ void pwm::initialize(){
 	memset(this->txBuffer, 0, sizeof(this->txBuffer));
 	this->opRes = ioctl(this->i2cHandle, I2C_TENBIT, 0); //setting the device address as 8-bit
 	this->opRes = ioctl(this->i2cHandle, I2C_SLAVE, 0x40); //tell the i2c periheral which address to communicate with
-
+	//startQuadEngines();
 	//put some code here that sets the ON/OFF_L/H depending on
 	//pin number
 }

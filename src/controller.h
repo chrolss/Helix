@@ -4,11 +4,11 @@
 
 #define cos45 0.707106
 #define sin45 0.707106
-#define C1 3333.33
+#define C1 4.0
 #define C2 277
 #define C3 1e7
 #define THRUST_CONST 0.0003
-#define MAX_SIGNAL 50.0
+#define MAX_SIGNAL 100.0
 #define MIN_SIGNAL 0.0
 
 class controller{

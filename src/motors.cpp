@@ -15,8 +15,8 @@ int motors::initialize(){
 	this->stopDuty[1] = 20.0;
 	this->stopDuty[2] = 20.0;
 	this->stopDuty[3] = 20.0;
-	//pwmHandle->setQuadDutyCycle(stopDuty);
-	pwmHandle->startQuadEngines();
+	pwmHandle->setQuadDutyCycle(stopDuty);
+	//pwmHandle->startQuadEngines();
 	usleep(1000000);
 	printf("Engines started\n");
 	return 1;
