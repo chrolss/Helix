@@ -1,5 +1,9 @@
 Welcome to the Helix drone project!
 
-More info to come
+This project aims to use the Raspberry Pi 3 to control all hardware on a self-deployed Quadrotor drone.
+The project is a "learning experience" and comes together with a manual describing the different technologies and coding principles needed.
+
+The manual can be given upon request, but will also be uploaded here once it reaches its first draft state.
+
 
 //Christian
