@@ -10,7 +10,7 @@ double sensorReadings[5];		//x-acc, y-acc, z-acc, pitch, roll
 double comOutput[5];			//[x-ref, y-ref, z-ref, thrust, ...]
 double motorVal[4];				//[RF, RR, LR, LF] pwm-values 0 - 100
 double joyVal[4];				//[x-axis, y-axis, z-axis, throttle]
-double references[3];
+double references[3];		//[alpha_r, beta_r, gamma_r] - not determined yet
 
 int main(){
 	mpu9150* mpu = new mpu9150();

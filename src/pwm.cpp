@@ -4,7 +4,7 @@ pwm::pwm(){
 	initialize();
 }
 void pwm::initialize(){
-	this->i2cHandle = open("/dev/i2c-1", O_RDWR);
+	this->i2cHandle = open("/dev/i2c-1", O_RDWR); //i2c-1 for Rpi3
 	memset(this->rxBuffer, 0, sizeof(this->rxBuffer));
 	memset(this->txBuffer, 0, sizeof(this->txBuffer));
 	this->opRes = ioctl(this->i2cHandle, I2C_TENBIT, 0); //setting the device address as 8-bit
@@ -12,6 +12,22 @@ void pwm::initialize(){
 	//startQuadEngines();
 	//put some code here that sets the ON/OFF_L/H depending on
 	//pin number
+
+	// Experimental code for waking up the chip and setting the correct mode
+	txBuffer[0] = MODE1;
+	txBuffer[1] = NORMAL_MODE;
+	opRes = write(this->i2cHandle, txBuffer, 2);
+	if (opRes != 1){
+		printf("Error initializing standard mode");
+	}
+	txBuffer[0] = MODE2;
+	txBuffer[1] = TOTEM_POLE;
+	opRes = write(this->i2cHandle, txBuffer, 2);
+	if (opRes != 1){
+		printf("Error setting up totem pole mode");
+	}
+
+	// Here it should call the frequency function
 }
 
 void pwm::startQuadEngines(){

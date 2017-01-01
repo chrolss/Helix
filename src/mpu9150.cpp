@@ -6,7 +6,7 @@ mpu9150::mpu9150(){
 };
 
 bool mpu9150::initialize(){
-	this->i2cHandle = open("/dev/i2c-1", O_RDWR);
+	this->i2cHandle = open("/dev/i2c-1", O_RDWR); //i2c-1 for Rpi3
 	memset(this->rxBuffer, 0, sizeof(this->rxBuffer));
 	memset(this->txBuffer, 0, sizeof(this->txBuffer));
 	this->opResult = ioctl(this->i2cHandle, I2C_TENBIT, 0); //setting the device address as 8-bit
@@ -22,6 +22,8 @@ bool mpu9150::initialize(){
 }
 
 void mpu9150::readAccelerations(){
+	//Reads the acceleration values from the sensor and converts it to
+	//roll and pitch angles
 	this->txBuffer[0] = 0x3B;	//0x3B is X_ACC_OUT_H
 	this->opResult = write(this->i2cHandle, txBuffer, 1);
 	if (opResult != 1){
@@ -53,12 +55,12 @@ void mpu9150::getSensorReadings(double *returnArray){
 }
 
 void mpu9150::readGyro(){
-	this->txBuffer[0] = 0x43;
+	this->txBuffer[0] = 0x43; //GYRO_XOUT high bit (0x43 -> 0x48)
 	this->opResult = write(this->i2cHandle, txBuffer, 1);
 	if (opResult != 1){
 		printf("no ack bit on read\n");
 	}
-	opResult = read(this->i2cHandle, rxBuffer, 2);
+	opResult = read(this->i2cHandle, rxBuffer, 6); 	//said 2, changed to 6
 	this->xGyro = ((int16_t)rxBuffer[0]<<8) | rxBuffer[1];
 	this->yGyro = ((int16_t)rxBuffer[2]<<8) | rxBuffer[3];
 	this->zGyro = ((int16_t)rxBuffer[4]<<8) | rxBuffer[5];
@@ -79,5 +81,3 @@ void mpu9150::readTemp(){
 double mpu9150::getTemp(){
 	return 0.0;
 }
-
-
