@@ -17,17 +17,15 @@ void pwm::initialize(){
 	txBuffer[0] = MODE1;
 	txBuffer[1] = NORMAL_MODE;
 	opRes = write(this->i2cHandle, txBuffer, 2);
-	if (opRes != 1){
-		printf("Error initializing standard mode");
+	if (opRes != 2){
+		printf("Error initializing standard mode in pwm initialize \n");
 	}
 	txBuffer[0] = MODE2;
 	txBuffer[1] = TOTEM_POLE;
 	opRes = write(this->i2cHandle, txBuffer, 2);
-	if (opRes != 1){
-		printf("Error setting up totem pole mode");
+	if (opRes != 2){
+		printf("Error setting up totem pole mode in pwm initialize \n");
 	}
-
-	// Here it should call the frequency function
 }
 
 void pwm::startQuadEngines(){

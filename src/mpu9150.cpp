@@ -15,7 +15,7 @@ bool mpu9150::initialize(){
 	this->txBuffer[1] = 1;
 	this->opResult = write(this->i2cHandle, txBuffer, 2); //wake it up
 	if (opResult != 2){
-		printf("No ack bit on write!\n");
+		printf("No ack bit on write in mpu9150 initialize!\n");
 		return false;
 	}
 	return true;
@@ -27,7 +27,7 @@ void mpu9150::readAccelerations(){
 	this->txBuffer[0] = 0x3B;	//0x3B is X_ACC_OUT_H
 	this->opResult = write(this->i2cHandle, txBuffer, 1);
 	if (opResult != 1){
-		printf("no ack bit on read\n");
+		printf("no ack bit on read in mpu9150 readAccelerations\n");
 	}
 	opResult = read(this->i2cHandle, rxBuffer, 6);
 	this->xAcc = ((int16_t)rxBuffer[0]<<8) | rxBuffer[1];
@@ -58,7 +58,7 @@ void mpu9150::readGyro(){
 	this->txBuffer[0] = 0x43; //GYRO_XOUT high bit (0x43 -> 0x48)
 	this->opResult = write(this->i2cHandle, txBuffer, 1);
 	if (opResult != 1){
-		printf("no ack bit on read\n");
+		printf("no ack bit on read in mpu9150 readGyro\n");
 	}
 	opResult = read(this->i2cHandle, rxBuffer, 6); 	//said 2, changed to 6
 	this->xGyro = ((int16_t)rxBuffer[0]<<8) | rxBuffer[1];

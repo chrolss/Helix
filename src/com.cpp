@@ -15,7 +15,7 @@ void com::error(const char *msg)	//function for catching communication errors
 void com::initialize(){
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0)
-		error("ERROR opening socket");
+		error("ERROR opening socket in com initialize");
 	bzero((char *) &serv_addr, sizeof(serv_addr));
 	portno = 9000;
 	serv_addr.sin_family = AF_INET;
@@ -24,7 +24,7 @@ void com::initialize(){
 
 	//bind socket to address
 	if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) //bind socket for communication
-	error("ERROR on binding");
+	error("ERROR on binding in com initialize");
 
 	//listen for connection on sockfd, 5 is the amount of possible connections allowed
 	printf("Listening for QuadCenter\n");
@@ -32,14 +32,14 @@ void com::initialize(){
 	clilen = sizeof(cli_addr);
 	newsockfd = accept(sockfd,(struct sockaddr *) &cli_addr,&clilen);
 	if (newsockfd < 0)
-		error("ERROR on accept");
+		error("ERROR on accept host in com initialize");
 	printf("QuadCenter connected\n");
 }
 
 void com::readMsg(){
 		bzero(buffer,256);
 		n = read(newsockfd,buffer,255);
-		if (n < 0) error("ERROR reading from socket");
+		if (n < 0) error("ERROR reading from socket in com readMsg");
 		//printf("Here is the message: %s \n",buffer);
 		//printf("Here is the second msg: %f \n", atof(buffer[1]));
 		//break communication if client sends "quit"
@@ -54,7 +54,7 @@ void com::readJoyVals(double *_joyVal){
 	int readVal[3];
 	bzero(buffer,256);
 	n = read(newsockfd,buffer,255);
-	if (n < 0) error("ERROR reading from socket");
+	if (n < 0) error("ERROR reading from socket in com readJoyVals");
 	//printf("Here is the message: %s \n",buffer);
 	//printf("Here is the second msg: %f \n", atof(buffer[1]));
 	//break communication if client sends "quit"
@@ -80,7 +80,7 @@ void com::readJoyVals(double *_joyVal){
 
 void com::sendAck(){
 	n = write(newsockfd,"send",4);
-	if (n<0) error("error sendign ack\n");
+	if (n<0) error("error sending ack bit in com sendAck\n");
 }
 
 void com::closeStream(){
