@@ -8,7 +8,6 @@ int motors::initialize(){
 	this->pwmHandle = new pwm();
 	pwmHandle->setFrequency(200); //old val: 200000000
 	usleep(1000000); // give time to set frequency
-	//pwmHandle->setQuadDutyCycle(stopDuty);
 	usleep(1000000); // give time to start all ESC
 	printf("Engines started\n");
 	this->stopDuty[0] = 20;

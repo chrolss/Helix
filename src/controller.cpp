@@ -82,8 +82,14 @@ void controller::getControlSignal(double *_refs, double *_sensorReadings, double
 	F = _refs[3]; //4*THRUST_CONST*0.30*0.30*10000.0; // ??
 	//return the control signals
 	//printf("Mb: %f, Ma: %f, Mg: %f\n", Ma, Mb, Mg);
-	_controlSignals[0] = signalLimiter(0.25*(F*C1 - Mb*C2 + Mg*C3));	//RF
-	_controlSignals[1] = signalLimiter(0.25*(F*C1 - Ma*C2 - Mg*C3));	//RR
-	_controlSignals[2] = signalLimiter(0.25*(F*C1 + Mb*C2 + Mg*C3));	//LR
-	_controlSignals[3] = signalLimiter(0.25*(F*C1 + Ma*C2 - Mg*C3));	//LF
+	_controlSignals[0] = signalLimiter(0.25*(F*parameters[9] - Mb*C2 + Mg*C3));	//RF
+	_controlSignals[1] = signalLimiter(0.25*(F*parameters[9] - Ma*C2 - Mg*C3));	//RR
+	_controlSignals[2] = signalLimiter(0.25*(F*parameters[9] + Mb*C2 + Mg*C3));	//LR
+	_controlSignals[3] = signalLimiter(0.25*(F*parameters[9] + Ma*C2 - Mg*C3));	//LF
+}
+
+void writeParameters(){
+	//Write parameters to file
+	//to be implemented when iPad app is upp
+	// and running
 }

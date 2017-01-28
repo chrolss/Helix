@@ -32,5 +32,5 @@ private:
 	double Mg;			//torque around gravity axis
 	double F;			//thrust force
 	double dt;
-	double parameters[9];	//0-2 pitchPID, 3-5 rollPID, 6-8 yawPID
+	double parameters[9];	//0-2 pitchPID, 3-5 rollPID, 6-8 yawPID, 9 force constant
 };

@@ -22,10 +22,14 @@ int main(){
 	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 	double loopSleep;
 	double loopTime;
+
+	// Testing playground
 	joyVal[0] = 500.0;
 	joyVal[1] = 500.0;
 	joyVal[2] = 0.0;
 	joyVal[3] = 0.0;
+	// End of playground
+
 	for (int i = 0; i<1000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
@@ -57,6 +61,6 @@ int main(){
 	}
 
 	motor->closeMotors();
-
+	com->closeStream();
 	return 1;
 }

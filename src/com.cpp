@@ -27,13 +27,13 @@ void com::initialize(){
 	error("ERROR on binding in com initialize");
 
 	//listen for connection on sockfd, 5 is the amount of possible connections allowed
-	printf("Listening for QuadCenter\n");
+	printf("Listening for HelixControl\n");
 	listen(sockfd,5);
 	clilen = sizeof(cli_addr);
 	newsockfd = accept(sockfd,(struct sockaddr *) &cli_addr,&clilen);
 	if (newsockfd < 0)
 		error("ERROR on accept host in com initialize");
-	printf("QuadCenter connected\n");
+	printf("HelixControl connected\n");
 }
 
 void com::readMsg(){
