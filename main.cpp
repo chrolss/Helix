@@ -17,7 +17,9 @@ int main(){
 	motors* motor = new motors();
 	controller* control = new controller();
 	usleep(10000);
+	std::cout << "before com" << std::endl;
 	com* comHandle = new com();
+	std::cout << "after com" << std::endl;
 	//initialize the clock
 	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 	double loopSleep;
@@ -61,6 +63,6 @@ int main(){
 	}
 
 	motor->closeMotors();
-	com->closeStream();
+	comHandle->closeStream();
 	return 1;
 }

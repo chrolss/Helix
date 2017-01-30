@@ -10,6 +10,7 @@ void controller::initialize(){
 	this->eRoll[2] = 0.0;
 	this->eYaw[2] = 0.0;
 	readParameters("src/pidParams.txt");
+	printf("exit readParameters");
 	printf("p1: %f, p2: %f, p3: %f\n", parameters[0], parameters[3], parameters[6]);
 
 }
