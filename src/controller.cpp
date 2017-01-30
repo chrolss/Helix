@@ -41,7 +41,8 @@ void controller::getReferences(double *_refs, double *_joyVal){
 	_refs[0] = _joyVal[1]*-0.00002411;
 	_refs[1] = _joyVal[0]*0.00002411;
 	_refs[2] = _joyVal[2]*0.00002411;
-	_refs[3] = _joyVal[3]*(-50.0)/32767.0 + 50.0;
+	//_refs[3] = _joyVal[3]*(-50.0)/32767.0 + 50.0;
+	_refs[3] = _joyVal[3]*(0.5) + 175; //from HelixApp
 }
 
 double controller::signalLimiter(double _signal){

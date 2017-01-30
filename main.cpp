@@ -17,24 +17,26 @@ int main(){
 	motors* motor = new motors();
 	controller* control = new controller();
 	usleep(10000);
-	std::cout << "before com" << std::endl;
 	com* comHandle = new com();
-	std::cout << "after com" << std::endl;
 	//initialize the clock
 	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 	double loopSleep;
 	double loopTime;
 
-	// Testing playground
+	/*Testing playground
 	joyVal[0] = 500.0;
 	joyVal[1] = 500.0;
 	joyVal[2] = 0.0;
 	joyVal[3] = 0.0;
-	// End of playground
+	End of playground
+  */
 
 	for (int i = 0; i<1000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
+		//new function
+		comHandle->readHelixApp(joyVal);
+		// end of new function
 		control->getReferences(references, joyVal);
 		control->getControlSignal(references, sensorReadings, motorVal);
 		motor->setSpeed(motorVal);

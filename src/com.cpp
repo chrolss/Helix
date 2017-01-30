@@ -49,6 +49,15 @@ void com::readMsg(){
 		printf("val: %f \n",readVal/42007.0);
 }
 
+void com::readHelixApp(double *_joyVal){
+	// function to use together with the iPad app HelixControl
+	bzero(buffer,256);
+	n = read(newsockfd,buffer,255);
+	if (n < 0) error("ERROR reading from socket in com readHelixApp\n");
+	double val = atof(buffer);
+	_joyVal[3] = val;
+}
+
 void com::readJoyVals(double *_joyVal){
 	//special function that reads only the joystick values from the QuadCenter program
 	int readVal[3];
