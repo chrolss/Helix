@@ -15,6 +15,7 @@ public:
 	void closeStream();
 	void sendAck();
 	void readJoyVals(double *_joyVal);
+	void readHelixApp(double *_joyVal);
 private:
 	void initialize();
 	void error(const char *msg);

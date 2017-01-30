@@ -52,10 +52,13 @@ void com::readMsg(){
 void com::readHelixApp(double *_joyVal){
 	// function to use together with the iPad app HelixControl
 	bzero(buffer,256);
+	// like i2c, send that we want to read
+	sendAck();
 	n = read(newsockfd,buffer,255);
 	if (n < 0) error("ERROR reading from socket in com readHelixApp\n");
 	double val = atof(buffer);
 	_joyVal[3] = val;
+	printf("received value: %s, converted:  %f \n", buffer, val);
 }
 
 void com::readJoyVals(double *_joyVal){
