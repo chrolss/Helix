@@ -23,24 +23,13 @@ int main(){
 	double loopSleep;
 	double loopTime;
 
-	/*Testing playground
-	joyVal[0] = 500.0;
-	joyVal[1] = 500.0;
-	joyVal[2] = 0.0;
-	joyVal[3] = 0.0;
-	End of playground
-  */
-
 	for (int i = 0; i<1000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
-		//new function
 		comHandle->readHelixApp(joyVal);
-		// end of new function
 		control->getReferences(references, joyVal);
 		control->getControlSignal(references, sensorReadings, motorVal);
 		motor->setSpeed(motorVal);
-		joyVal[3] = i;
 		/*
 		comHandle->sendAck();	//send to joystick that we want to read
 		comHandle->readJoyVals(joyVal);

@@ -49,16 +49,35 @@ void com::readMsg(){
 		printf("val: %f \n",readVal/42007.0);
 }
 
+void decodeMessage(char _msg[],double *_joyVal){
+	//only used as reference to readHelixApp
+  printf("Here is the msg from decoder: %s \n", _msg);
+  sscanf(_msg, "%lf:%lf:%lf:%lf", &_joyVal[0], &_joyVal[1], &_joyVal[2], &_joyVal[3]);
+  for (int i = 0; i<5; i++){
+    std::cout << joyVal[i] << std::endl;
+  }
+}
+
 void com::readHelixApp(double *_joyVal){
 	// function to use together with the iPad app HelixControl
 	bzero(buffer,256);
 	// like i2c, send that we want to read
 	sendAck();
 	n = read(newsockfd,buffer,255);
+
+	//New CODE to be tested
+	sscanf(buffer, "%lf:%lf:%lf:%lf", &_joyVal[0], &_joyVal[1], &_joyVal[2], &_joyVal[3]));
+	for (int i = 0; i<5; i++){
+		std::cout << joyVal[i] << std::endl;
+	}
+
+	/*
+	OLD WORKING CODE (kind of at least)
 	if (n < 0) error("ERROR reading from socket in com readHelixApp\n");
 	double val = atof(buffer);
 	_joyVal[3] = val;
 	printf("received value: %s, converted:  %f \n", buffer, val);
+	*/
 }
 
 void com::readJoyVals(double *_joyVal){

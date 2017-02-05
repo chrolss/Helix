@@ -34,14 +34,27 @@ void controller::readParameters(std::string _paramsFileName){
 
 
 void controller::getReferences(double *_refs, double *_joyVal){
+	//joyval = [Lx Ly Rx Ry]
+	// Lx = [-500 .. -300], Ly = [-150 .. -350]
+	// Rx = [300 .. 500], Ry = [-150 .. -350]
+	// _refs = [alpha, beta, gamma, throttle]
+	// _ref = [roll, pitch, yaw, throttle]
+	// TODO
+	// convert the integers into radian limits (pi/4) -> (-pi/4)
+	_refs[0] = (3.14/400)*_joyVal[3]-3.14;
+	_refs[1] = (3.14/400)*_joyVal[4]+(5/8)*3.14;
+	//_refs[2] = _joyVal[0]*0.00002411;
+	_refs[2] = 0.0;
+	_refs[3] = _joyVal[1]*(0.5) + 175; //from HelixApp [-350 -150] -> [0 100]
+	/* OLD CODE
 	// joyVal = [x-axis, y-axis, throttle], max = 32767, min -32767
 	// refs should be in rad
 	// _refs = [alpha, beta, gamma, throttle], maxAngle = +-0.79 rad, throttle = [0 - 100]
 	_refs[0] = _joyVal[1]*-0.00002411;
 	_refs[1] = _joyVal[0]*0.00002411;
 	_refs[2] = _joyVal[2]*0.00002411;
-	//_refs[3] = _joyVal[3]*(-50.0)/32767.0 + 50.0;
-	_refs[3] = _joyVal[3]*(0.5) + 175; //from HelixApp
+	_refs[3] = _joyVal[3]*(0.5) + 175; //from HelixApp [-350 -150] -> [0 100]
+	*/
 }
 
 double controller::signalLimiter(double _signal){

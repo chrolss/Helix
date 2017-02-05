@@ -18,6 +18,7 @@ public:
 	void readHelixApp(double *_joyVal);
 private:
 	void initialize();
+	void decodeMessage(char _msg[],double *_joyVal);
 	void error(const char *msg);
 	int sockfd, newsockfd, portno;				//bit addresses
 	socklen_t clilen;
