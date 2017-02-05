@@ -38,8 +38,8 @@ void controller::getReferences(double *_refs, double *_joyVal){
 	// Lx = [-500 .. -300], Ly = [-150 .. -350]
 	// Rx = [300 .. 500], Ry = [-150 .. -350]
 	// _refs = [alpha/roll, beta/pitch, gamma/yaw, throttle], maxAngle = +-0.79 rad, throttle = [0 - 100]
-	_refs[0] = (3.14/400.0)*_joyVal[2]-3.14;
-	_refs[1] = (3.14/400.0)*_joyVal[3]+(5.0/8.0)*3.14;
+	_refs[1] = (3.14/400.0)*_joyVal[2]-3.14;
+	_refs[0] = (3.14/400.0)*_joyVal[3]+(5.0/8.0)*3.14;
 	//_refs[2] = _joyVal[0]*0.00002411; // Implement yaw later
 	_refs[2] = 0.0;
 	_refs[3] = _joyVal[1]*(0.5) + 175; //from HelixApp [-350 -150] -> [0 100]

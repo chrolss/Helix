@@ -23,7 +23,7 @@ int main(){
 	double loopSleep;
 	double loopTime;
 
-	for (int i = 0; i<1000; i++){
+	for (int i = 0; i<100000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
 		comHandle->readHelixApp(joyVal);
