@@ -41,20 +41,15 @@ void controller::getReferences(double *_refs, double *_joyVal){
 	// _ref = [roll, pitch, yaw, throttle]
 	// TODO
 	// convert the integers into radian limits (pi/4) -> (-pi/4)
-	_refs[0] = (3.14/400)*_joyVal[3]-3.14;
-	_refs[1] = (3.14/400)*_joyVal[4]+(5/8)*3.14;
+	_refs[0] = (3.14/400.0)*_joyVal[2]-3.14;
+	_refs[1] = (3.14/400.0)*_joyVal[3]+(5.0/8.0)*3.14;
 	//_refs[2] = _joyVal[0]*0.00002411;
 	_refs[2] = 0.0;
 	_refs[3] = _joyVal[1]*(0.5) + 175; //from HelixApp [-350 -150] -> [0 100]
-	/* OLD CODE
 	// joyVal = [x-axis, y-axis, throttle], max = 32767, min -32767
 	// refs should be in rad
 	// _refs = [alpha, beta, gamma, throttle], maxAngle = +-0.79 rad, throttle = [0 - 100]
-	_refs[0] = _joyVal[1]*-0.00002411;
-	_refs[1] = _joyVal[0]*0.00002411;
-	_refs[2] = _joyVal[2]*0.00002411;
-	_refs[3] = _joyVal[3]*(0.5) + 175; //from HelixApp [-350 -150] -> [0 100]
-	*/
+	//printf("roll %f, pitch %f, throttle %f", _refs[0], _refs[1], _refs[3]);
 }
 
 double controller::signalLimiter(double _signal){
