@@ -11,6 +11,7 @@ double comOutput[5];			//[x-ref, y-ref, z-ref, thrust, ...]
 double motorVal[4];				//[RF, RR, LR, LF] pwm-values 0 - 100
 double joyVal[4];				//[x-axis, y-axis, z-axis, throttle]
 double references[3];		//[alpha_r, beta_r, gamma_r] - not determined yet
+int motorsOn = 0;						// 1 = motorsOn , 0 = motorsOff
 
 int main(){
 	mpu9150* mpu = new mpu9150();
@@ -26,19 +27,18 @@ int main(){
 	for (int i = 0; i<100000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
-		comHandle->readHelixApp(joyVal);
+		comHandle->readHelixApp(joyVal, motorsOn);
 		control->getReferences(references, joyVal);
 		control->getControlSignal(references, sensorReadings, motorVal);
-		motor->setSpeed(motorVal);
-		/*
-		comHandle->sendAck();	//send to joystick that we want to read
-		comHandle->readJoyVals(joyVal);
-		mpu->getSensorReadings(sensorReadings);
-		control->getReferences(references, joyVal);
-		control->getControlSignal(references, sensorReadings, motorVal);
-		motor->setSpeed(motorVal);
-		*/
-		printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
+
+		//Check if enginges should be on or off
+		if (motorsOn == 1){
+			motor->setSpeed(motorVal);
+
+			printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
+		} else {
+			motor->stopMotors();
+		}
 
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count();
 		loopSleep = 10000 - (int)duration;

@@ -15,7 +15,7 @@ public:
 	void closeStream();
 	void sendAck();
 	void readJoyVals(double *_joyVal);
-	void readHelixApp(double *_joyVal);
+	void readHelixApp(double *_joyVal, int *_motorsOn);
 private:
 	void initialize();
 	void decodeMessage(char _msg[],double *_joyVal);

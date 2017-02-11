@@ -58,7 +58,7 @@ void decodeMessage(char _msg[],double *_joyVal){
   }
 }
 
-void com::readHelixApp(double *_joyVal){
+void com::readHelixApp(double *_joyVal, int *_motosOn){
 	// function to use together with the iPad app HelixControl
 	bzero(buffer,256);
 	// like i2c, send that we want to read
@@ -66,7 +66,7 @@ void com::readHelixApp(double *_joyVal){
 	n = read(newsockfd,buffer,255);
 
 	//New CODE to be tested
-	sscanf(buffer, "%lf:%lf:%lf:%lf", &_joyVal[0], &_joyVal[1], &_joyVal[2], &_joyVal[3]);
+	sscanf(buffer, "%lf:%lf:%lf:%lf:%d", &_joyVal[0], &_joyVal[1], &_joyVal[2], &_joyVal[3], &_motorsOn);
 	/*for (int i = 0; i<5; i++){
 		std::cout << _joyVal[i] << std::endl;
 	}
