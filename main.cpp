@@ -27,7 +27,7 @@ int main(){
 	for (int i = 0; i<100000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
-		comHandle->readHelixApp(joyVal);
+		comHandle->readHelixApp(joyVal, sensorReadings, motorVal);
 		control->getReferences(references, joyVal);
 		control->getControlSignal(references, sensorReadings, motorVal);
 

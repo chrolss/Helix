@@ -15,7 +15,7 @@ public:
 	void closeStream();
 	void sendAck();
 	void readJoyVals(double *_joyVal);
-	void readHelixApp(double *_joyVal);
+	void readHelixApp(double *_joyVal, double *_sensorReadings, double *_motorsVals);
 private:
 	void initialize();
 	void decodeMessage(char _msg[],double *_joyVal);
@@ -26,4 +26,6 @@ private:
 	int msgBuffer[256];
 	struct sockaddr_in serv_addr, cli_addr;	//communcation structs
 	int n;										//communcation handle
+	std::string sendMessage;
+	std::ostringstream ostr;
 };
