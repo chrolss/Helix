@@ -58,15 +58,20 @@ void decodeMessage(char _msg[],double *_joyVal){
   }
 }
 
-void com::readHelixApp(double *_joyVal double *_sensorReadings, double *_motorsVals){
+void com::readHelixApp(double *_joyVal, double *_sensorReadings, double *_motorsVals){
 	// function to use together with the iPad app HelixControl
 	bzero(buffer,256);
 	// like i2c, send that we want to read
 	// WRITE PART OF THE CODE
+	/* Code that works, but we are testing the NEW CODE
 	ostr.str("");
 	// ostr = "pitch:roll:RF:RR:LR:LF"
 	ostr << _sensorReadings[3] << ":" << _sensorReadings[4] << ":" << _motorsVals[0] << ":" << _motorsVals[1] << ":" << _motorsVals[2] << ":" << _motorsVals[3];
 	sendMessage = ostr.str();
+	*/
+	// Test Code
+	
+	sendMessage = "1:2:3:4:5:6";
 	//sendAck();
 	int n = write(newsockfd,sendMessage.c_str(),sendMessage.length());
 	// READ PART OF THE CODE
