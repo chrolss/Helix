@@ -35,7 +35,7 @@ int main(){
 		if (joyVal[4]){
 			motor->setSpeed(motorVal);
 
-			printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
+			//printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
 		} else {
 			motor->stopMotors();
 		}
