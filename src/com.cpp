@@ -39,10 +39,6 @@ void com::initialize(){
 	for (int i = 0; i<6; i++){
 		outputs[i] = 0;
 	}
-
-	//Start the communication loop after this, OR?
-	// Call communication thread in main.cpp and from the
-	// new thread we execute the communicationLoop()
 }
 
 void com::startCommunicationThread(){
@@ -103,6 +99,12 @@ void com::readFromHelixApp(){
 	n = read(newsockfd,buffer,255);
 	if (n<0){
 		printf("error in readFromHelixApp\n");
+	}
+	//Code to see if HelixApp closed the connection
+	connectedString(buffer);
+	if (connectedString.substr(0,4) == "quit"){
+		printf("The client has quit the conversation \n");
+	  	connected = false;
 	}
 	sscanf(buffer, "%lf:%lf:%lf:%lf:%lf", &inputs[0], &inputs[1], &inputs[2], &inputs[3], &inputs[4]);
 

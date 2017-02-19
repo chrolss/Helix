@@ -28,6 +28,7 @@ public:
 	void readFromHelixApp();
 	bool waitToRead(){return waitToReadMessage;}
 	bool waitToSend(){return waitToSendMessage;}
+	bool getConnectedStats(){return connected;}
 private:
 	void initialize();
 	void error(const char *msg);
@@ -45,4 +46,5 @@ private:
 	double inputs[5]; //these values were read from the helix app
 	std::string sendMessage;
 	std::ostringstream ostr;
+	std::string connectedString;
 };

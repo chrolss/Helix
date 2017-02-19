@@ -27,7 +27,8 @@ int main(){
 	//NEW CODE
 	comHandle->startCommunicationThread();
 
-	for (int i = 0; i<100000; i++){
+	//for (int i = 0; i<100000; i++){
+	while (comHandle->getConnectedStats()){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
 		//comHandle->readHelixApp(joyVal, sensorReadings, motorVal);
