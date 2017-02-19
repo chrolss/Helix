@@ -3,6 +3,7 @@
 #include <string.h>
 #include <sstream>
 #include <string>
+#include <thread>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -20,11 +21,13 @@ public:
 	void readJoyVals(double *_joyVal);
 	void readHelixApp(double *_joyVal, double *_sensorReadings, double *_motorsVals);
 	void communicationLoop();
-	void com::startCommunicationThread();
-	void com::setOutputData(double *_sensorReadings, double *_motorsVals);
-	void com::getInputData(double *_joyVal);
-	void com::sendToHelixApp();
-	void com::readFromHelixApp();
+	void startCommunicationThread();
+	void setOutputData(double *_sensorReadings, double *_motorsVals);
+	void getInputData(double *_joyVal);
+	void sendToHelixApp();
+	void readFromHelixApp();
+	bool waitToRead(){return waitToReadMessage;}
+	bool waitToSend(){return waitToSendMessage;}
 private:
 	void initialize();
 	void error(const char *msg);
@@ -38,8 +41,8 @@ private:
 	bool connected;
 	bool waitToReadMessage;
 	bool waitToSendMessage;
-	double outputs[]; //these values are sent to the helix app
-	double inputs[]; //these values were read from the helix app
+	double outputs[6]; //these values are sent to the helix app
+	double inputs[5]; //these values were read from the helix app
 	std::string sendMessage;
 	std::ostringstream ostr;
 };

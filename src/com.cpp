@@ -36,6 +36,9 @@ void com::initialize(){
 	printf("HelixControl connected\n");
 	connected = true;
 	waitToSendMessage = true;
+	for (int i = 0; i<6; i++){
+		outputs[i] = 0;
+	}
 
 	//Start the communication loop after this, OR?
 	// Call communication thread in main.cpp and from the
@@ -45,7 +48,7 @@ void com::initialize(){
 void com::startCommunicationThread(){
 	// Make sure this works and that everything is
 	// declared here before entering the loop
-	std::thread t1(&com::communicationLoop(), this);
+	std::thread t1(&com::communicationLoop, this);
 	t1.detach();
 }
 

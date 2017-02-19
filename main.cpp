@@ -33,7 +33,10 @@ int main(){
 		//comHandle->readHelixApp(joyVal, sensorReadings, motorVal);
 
 		//NEW CODE
+		// do I need the if statements?
+			//if (comHandle->waitToRead())
 			comHandle->setOutputData(sensorReadings, motorVal);
+			//if (comHandle->waitToSend())
 			comHandle->getInputData(joyVal);
 		//
 
@@ -47,6 +50,7 @@ int main(){
 			//printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
 		} else {
 			motor->stopMotors();
+			printf("Enginges off\n");
 		}
 
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count();

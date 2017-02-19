@@ -1,3 +1,3 @@
 #!/bin/bash
 
-g++ -std=c++11  main.cpp ${PWD}/src/com.cpp  ${PWD}/src/controller.cpp ${PWD}/src/mpu9150.cpp ${PWD}/src/pwm.cpp ${PWD}/src/motors.cpp ${PWD}/src/i2c.cpp  -o helix
+g++ -std=c++11 -pthread  main.cpp ${PWD}/src/com.cpp  ${PWD}/src/controller.cpp ${PWD}/src/mpu9150.cpp ${PWD}/src/pwm.cpp ${PWD}/src/motors.cpp ${PWD}/src/i2c.cpp  -o helix
