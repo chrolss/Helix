@@ -101,9 +101,9 @@ void com::readFromHelixApp(){
 		printf("error in readFromHelixApp\n");
 	}
 	//Code to see if HelixApp closed the connection
-	connectedString(buffer);
+	std::string connectedString(buffer);
 	if (connectedString.substr(0,4) == "quit"){
-		printf("The client has quit the conversation \n");
+		printf("Helix app disconnected by command\n");
 	  	connected = false;
 	}
 	sscanf(buffer, "%lf:%lf:%lf:%lf:%lf", &inputs[0], &inputs[1], &inputs[2], &inputs[3], &inputs[4]);
