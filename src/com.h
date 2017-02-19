@@ -20,6 +20,11 @@ public:
 	void readJoyVals(double *_joyVal);
 	void readHelixApp(double *_joyVal, double *_sensorReadings, double *_motorsVals);
 	void communicationLoop();
+	void com::startCommunicationThread();
+	void com::setOutputData(double *_sensorReadings, double *_motorsVals);
+	void com::getInputData(double *_joyVal);
+	void com::sendToHelixApp();
+	void com::readFromHelixApp();
 private:
 	void initialize();
 	void error(const char *msg);
@@ -27,12 +32,14 @@ private:
 	socklen_t clilen;
 	char buffer[256];							//messages buffer
 	int msgBuffer[256];
-	struct sockaddr_in serv_addr, cli_addr;	//communcation structs
-	int n;		//communcation handle
+	struct sockaddr_in serv_addr, cli_addr;	//communication structs
+	int n;		//communication handle
 	int count;
 	bool connected;
 	bool waitToReadMessage;
 	bool waitToSendMessage;
+	double outputs[]; //these values are sent to the helix app
+	double inputs[]; //these values were read from the helix app
 	std::string sendMessage;
 	std::ostringstream ostr;
 };

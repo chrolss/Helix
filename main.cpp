@@ -24,10 +24,19 @@ int main(){
 	double loopSleep;
 	double loopTime;
 
+	//NEW CODE
+	comHandle->startCommunicationThread();
+
 	for (int i = 0; i<100000; i++){
 		auto start = std::chrono::high_resolution_clock::now();
 		mpu->getSensorReadings(sensorReadings);
-		comHandle->readHelixApp(joyVal, sensorReadings, motorVal);
+		//comHandle->readHelixApp(joyVal, sensorReadings, motorVal);
+
+		//NEW CODE
+			comHandle->setOutputData(sensorReadings, motorVal);
+			comHandle->getInputData(joyVal);
+		//
+
 		control->getReferences(references, joyVal);
 		control->getControlSignal(references, sensorReadings, motorVal);
 

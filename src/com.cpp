@@ -36,20 +36,29 @@ void com::initialize(){
 	printf("HelixControl connected\n");
 	connected = true;
 	waitToSendMessage = true;
-	// Start a separate thread for listening and communicating to the iPad app
-	//
+
+	//Start the communication loop after this, OR?
+	// Call communication thread in main.cpp and from the
+	// new thread we execute the communicationLoop()
+}
+
+void com::startCommunicationThread(){
+	// Make sure this works and that everything is
+	// declared here before entering the loop
+	std::thread t1(&com::communicationLoop(), this);
+	t1.detach();
 }
 
 void com::communicationLoop(){
 	// the loop which handles the communication
 	while (connected){
 		if (waitToReadMessage){
-			//TODO: implement the whole read msg function
+			readFromHelixApp();
 			waitToReadMessage = false;
 			waitToSendMessage = true;
 		}
 		if (waitToSendMessage){
-			//TODO: implement the whole send msg function
+			sendToHelixApp();
 			waitToReadMessage = true;
 			waitToSendMessage = false;
 		}
@@ -65,7 +74,44 @@ void com::readMsg(){
 		printf("val: %f \n",readVal/42007.0);
 }
 
+void com::setOutputData(double *_sensorReadings, double *_motorsVals){
+	outputs[0] = _sensorReadings[3]*RADTODEG;
+	outputs[1] = _sensorReadings[4]*RADTODEG;
+	outputs[2] = _motorsVals[0];
+	outputs[3] = _motorsVals[1];
+	outputs[4] = _motorsVals[2];
+	outputs[5] = _motorsVals[3];
+}
 
+void com::sendToHelixApp(){
+	ostr.str("");
+	for (int i = 0; i<6; i++){
+		ostr << outputs[i] << ":";
+	}
+	sendMessage = ostr.str();
+	n = write(newsockfd, sendMessage.c_str(), sendMessage.length());
+	if (n<0){
+		printf("Error sendToHelixApp\n");
+	}
+}
+
+void com::readFromHelixApp(){
+	bzero(buffer,256);
+	n = read(newsockfd,buffer,255);
+	if (n<0){
+		printf("error in readFromHelixApp\n");
+	}
+	sscanf(buffer, "%lf:%lf:%lf:%lf:%lf", &inputs[0], &inputs[1], &inputs[2], &inputs[3], &inputs[4]);
+
+}
+
+void com::getInputData(double *_joyVal){
+	_joyVal[0] = inputs[0];
+	_joyVal[1] = inputs[1];
+	_joyVal[2] = inputs[2];
+	_joyVal[3] = inputs[3];
+	_joyVal[4] = inputs[4];
+}
 
 void com::readHelixApp(double *_joyVal, double *_sensorReadings, double *_motorsVals){
 	// function to use together with the iPad app HelixControl
