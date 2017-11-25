@@ -51,7 +51,7 @@ int main(){
 			//printf("RF: %f, RR: %f, LR: %f, LF: %f\n", motorVal[0], motorVal[1], motorVal[2], motorVal[3]);
 		} else {
 			motor->stopMotors();
-			printf("Enginges off\n");
+			//printf("Enginges off\n");
 		}
 
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count();

@@ -34,15 +34,16 @@ void controller::readParameters(std::string _paramsFileName){
 
 
 void controller::getReferences(double *_refs, double *_joyVal){
+	// updated 20171125 to fit the Helix app joyVals
 	//joyval = [Lx Ly Rx Ry]
-	// Lx = [-500 .. -300], Ly = [-150 .. -350]
-	// Rx = [300 .. 500], Ry = [-150 .. -350]
+	// Lx = [-300 .. -100], Ly = [-100 .. 100]
+	// Rx = [100 .. 300], Ry = [-100 .. 100]
 	// _refs = [beta/pitch, alpha/roll gamma/yaw, throttle], maxAngle = +-0.79 rad, throttle = [0 - 100]
-	_refs[0] = (3.14/400.0)*_joyVal[3]+(5.0/8.0)*3.14;
-	_refs[1] = (3.14/400.0)*_joyVal[2]-3.14;
+	_refs[0] = (0.785/100.0)*_joyVal[3]; // no need for "m"
+	_refs[1] = (0.785/100.0)*_joyVal[2]-1.57;
 	//_refs[2] = _joyVal[0]*0.00002411; // Implement yaw later
 	_refs[2] = 0.0;
-	_refs[3] = _joyVal[1]*(0.5) + 175; //from HelixApp [-350 -150] -> [0 100]
+	_refs[3] = (0.45)*_joyVal[1] + 45; //from HelixApp [-350 -150] -> [0 100]
 }
 
 double controller::signalLimiter(double _signal){
