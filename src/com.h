@@ -47,4 +47,11 @@ private:
 	std::string sendMessage;
 	std::ostringstream ostr;
 	std::string connectedString;
+	std::ostringstream out0;
+	std::ostringstream out1;
+	std::ostringstream out2;
+	std::ostringstream out3;
+	std::ostringstream out4;
+	std::ostringstream out5;
+
 };

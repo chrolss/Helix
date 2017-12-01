@@ -37,7 +37,7 @@ void com::initialize(){
 	connected = true;
 	waitToSendMessage = true;
 	for (int i = 0; i<6; i++){
-		outputs[i] = 0;
+		outputs[i] = 0.0;
 	}
 }
 
@@ -74,12 +74,31 @@ void com::readMsg(){
 }
 
 void com::setOutputData(double *_sensorReadings, double *_motorsVals){
+	// instead of sending the full double values, we should limit it to
+	// the first 4 digits in the values
+	// outputs[] is a double array at the moment
+/*
+	out0 << _sensorReadings[3]*RADTODEG;
+	out1 << _sensorReadings[4]*RADTODEG;
+	out2 << _motorsVals[0];
+	out3 << _motorsVals[1];
+	out4 << _motorsVals[2];
+	out5 << _motorsVals[3];
+
+	outputs[0] = out0.str().substr(0,3);
+	outputs[1] = out1.str().substr(0,3);
+	outputs[2] = out2.str().substr(0,3);
+	outputs[3] = out3.str().substr(0,3);
+	outputs[4] = out4.str().substr(0,3);
+	outputs[5] = out5.str().substr(0,3);
+	*/
 	outputs[0] = _sensorReadings[3]*RADTODEG;
 	outputs[1] = _sensorReadings[4]*RADTODEG;
 	outputs[2] = _motorsVals[0];
 	outputs[3] = _motorsVals[1];
 	outputs[4] = _motorsVals[2];
 	outputs[5] = _motorsVals[3];
+
 }
 
 void com::sendToHelixApp(){
